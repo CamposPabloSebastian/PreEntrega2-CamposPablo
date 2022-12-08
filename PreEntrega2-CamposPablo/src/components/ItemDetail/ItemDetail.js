@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
+import ItemCount from './../ItemCount/ItemCount';
 
 const ItemDetail = ({ producto }) => {
-    console.log(producto)
     return (
 
         <div className="col-12 col-md-6 col-lg-4 p-4">
@@ -21,6 +21,8 @@ const ItemDetail = ({ producto }) => {
                     </ul>
                 </div>
                 <div className="card-footer text-end">{producto.precio}</div>
+                <div className="text-center"><ItemCount stockInicial={0} /></div>
+
                 {/* <button type="button" id={"detalle" + producto.id} className="btn btn-dark btn-detalle" data-bs-toggle="modal" data-bs-target={"#staticBackdropDetalle" + producto.id}>Detalle
                 </button> */}
             </div>

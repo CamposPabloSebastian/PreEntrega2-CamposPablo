@@ -5,4 +5,15 @@
     justify-content: space-around;
 }
 
-/* .navbar li {} */
+.spanCartWidget {
+    padding-left: 10px;
+}
+
+.iconCartWidget {
+    text-decoration: none;
+    color: rgb(252, 124, 124);
+}
+
+.spanCartWidget {
+    color: white;
+}

@@ -9,14 +9,14 @@ const ItemCount = ({ stockInicial }) => {
     }
 
     const buttonSuma = () => {
-        stock === stockInicial ? setStock(stockInicial) : setStock(stock + 1);
+        stock < 10 ? setStock(stock + 1) : setStock(10);
     }
 
     return (
         <div>
-            <button onClick={buttonResta}>-</button>
+            <button className="btn btn-secondary mx-3" onClick={buttonResta}>-</button>
             <span>{stock}</span>
-            <button onClick={buttonSuma}>+</button>
+            <button className="btn btn-secondary ms-3" onClick={buttonSuma}>+</button>
         </div>
     );
 }
