@@ -1,0 +1,8 @@
+.navbar {
+    background-color: gray;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+/* .navbar li {} */
