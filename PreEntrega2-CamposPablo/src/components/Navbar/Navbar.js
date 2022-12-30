@@ -68,7 +68,13 @@ const Navbar = () => {
                             </ul>
                         </li>
                     </ul>
-                    <li className="nav-item li-cart" id="cart"><Link to="/ " className="iconCartWidget"><CardWidget /><span className="spanCartWidget">1</span></Link></li>
+                    <li className="nav-item li-cart" id="cart">
+                        <Link to="/cart" className="iconCartWidget">
+                            <CardWidget /><span className="spanCartWidget">
+                                1
+                            </span>
+                        </Link>
+                    </li>
                 </div>
             </div>
         </nav>
