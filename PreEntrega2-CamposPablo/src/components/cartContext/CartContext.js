@@ -9,7 +9,7 @@ const CartProvider = ({ children }) => {
 
     //establece la cantidad de productos en el carrito. (icono de carro)
     const contar = () => {
-        return cart.reduce((initialAmount, item) => (initialAmount + item.amount), 0);
+        return cart.reduce((initialAmount, item) => (initialAmount += item.amount), 0);
     }
 
     function isInCart(id) {
@@ -18,17 +18,14 @@ const CartProvider = ({ children }) => {
 
     const addItemCart = (prod, amount) => {
         if (isInCart(prod.id)) {
-            console.log("se encontro este objeto")
             setCart(
                 cart.map((item) => {
                     return (item.id === prod.id
-                        ? { ...prod, amount: prod.amount + amount }
+                        ? { ...item, amount: item.amount + amount }
                         : prod);
                 })
             )
-
         } else {
-            console.log("estoy aca...")
             setCart([...cart, { ...prod, amount }]);
         }
     }

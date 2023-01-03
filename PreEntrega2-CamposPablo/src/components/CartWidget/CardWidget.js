@@ -2,7 +2,6 @@ import React from 'react';
 import { BsFillCartFill } from "react-icons/bs";
 
 const CardWidget = ({ countCart }) => {
-    // console.log("en carwidget es: " + typeof (countCart), countCart)
 
     return (
         <>

@@ -5,12 +5,11 @@ import { CartContext } from '../cartContext/CartContext';
 
 const ItemDetail = ({ producto }) => {
 
-    const [countItemCart, setCountItemCart] = useState(0);
+    // const [countItemCart, setCountItemCart] = useState(0);
     const { addItemCart } = useContext(CartContext);
 
     const onAdd = (cant) => {
-        // console.log("cant en item detail es: " + typeof (cant), cant)
-        setCountItemCart(cant);
+        // setCountItemCart(cant);
         addItemCart(producto, cant);
     }
 
@@ -37,8 +36,8 @@ const ItemDetail = ({ producto }) => {
                         </ul>
                     </div>
                     <div className="card-footer text-end">{producto.precio}</div>
-                    <div className="text-center"><ItemCount stockInicial={producto.stock} onAdd={onAdd} /></div>
-                    <p>Unidades disponibles: {producto.stock - countItemCart}</p>
+                    <div className="text-center"><ItemCount onAdd={onAdd} /></div>
+                    {/* <p>Unidades disponibles: {producto.stock - countItemCart}</p> */}
                 </div>
             </div>
         </>

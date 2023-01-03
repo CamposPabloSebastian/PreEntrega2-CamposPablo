@@ -10,21 +10,6 @@ const Navbar = () => {
     // console.log("en nav es: " + typeof (contar()), contar())
 
     return (
-        // <header>
-        //     <div classNameName="empresa">
-        //         <div>
-        //             <h1>SoloMotos</h1>
-        //         </div>
-        //         <nav>
-        //             <ul classNameName="navbar">
-        //                 <Link to="/">Inicio</Link>
-        //                 <Link to="/ListMotos">Ver motos</Link>
-        //                 <Link to="/">Iniciar Sesion</Link>
-        //                 <Link to="/"><CardWidget />1</Link>
-        //             </ul>
-        //         </nav>
-        //     </div>
-        // </header>
         <nav className="navbar navbar-dark bg-dark navbar-expand-lg">
             <div className="container w-75">
                 <Link to="/" className="navbar-brand" href="#"><u><b>Solo</b><i >Motos</i></u></Link>

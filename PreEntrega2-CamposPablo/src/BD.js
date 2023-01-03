@@ -15,6 +15,7 @@ class Vehiculo {
         this.precio = precio;
         this.img = img;
         this.stock = 2;
+        this.amount = 0;
     };
 }
 

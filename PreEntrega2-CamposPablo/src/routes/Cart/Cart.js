@@ -28,7 +28,7 @@ const Cart = () => {
                     </tr>
                 </thead>
                 {cart.map((item, index) => (
-                    <tbody key={index}>
+                    <tbody key={index} >
                         <tr>
                             <th colSpan="row">{index + 1}</th>
                             <td className='col-2'><img src={item.img} className="img-fluid rounded-start" alt="..." /></td>
