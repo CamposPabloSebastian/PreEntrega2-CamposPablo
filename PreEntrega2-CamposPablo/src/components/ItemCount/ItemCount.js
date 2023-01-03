@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 
-const ItemCount = ({ stockInicial, onClick }) => {
+const ItemCount = ({ stockInicial, onAdd }) => {
 
     const [stock, setStock] = useState(0);
 
-    const buttonResta = () => {
-        stock > 0 ? setStock(stock - 1) : setStock(0);
-    }
+    let buttonResta, buttonSuma;
 
-    const buttonSuma = () => {
-        stock < stockInicial ? setStock(stock + 1) : setStock(stockInicial);
+    if (stockInicial) { //si el stock no es cero entramos
+        buttonResta = () => {
+            stock > 0 ? setStock(stock - 1) : setStock(0);
+        }
+
+        buttonSuma = () => {
+            stock < stockInicial ? setStock(stock + 1) : setStock(stockInicial);
+        }
     }
 
     const addItem = () => {
-        onClick(stock);
+        onAdd(stock);
     }
 
     return (

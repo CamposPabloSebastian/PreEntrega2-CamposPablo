@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import ItemCount from './../ItemCount/ItemCount';
 import { Link } from 'react-router-dom';
+import { CartContext } from '../cartContext/CartContext';
 
 const ItemDetail = ({ producto }) => {
 
     const [countItemCart, setCountItemCart] = useState(0);
+    const { addItemCart } = useContext(CartContext);
 
     const onAdd = (cant) => {
-        setCountItemCart(cant)
+        // console.log("cant en item detail es: " + typeof (cant), cant)
+        setCountItemCart(cant);
+        addItemCart(producto, cant);
     }
 
     return (
@@ -33,7 +37,7 @@ const ItemDetail = ({ producto }) => {
                         </ul>
                     </div>
                     <div className="card-footer text-end">{producto.precio}</div>
-                    <div className="text-center"><ItemCount stockInicial={producto.stock} onClick={onAdd} /></div>
+                    <div className="text-center"><ItemCount stockInicial={producto.stock} onAdd={onAdd} /></div>
                     <p>Unidades disponibles: {producto.stock - countItemCart}</p>
                 </div>
             </div>
@@ -41,4 +45,4 @@ const ItemDetail = ({ producto }) => {
     )
 }
 
-export default ItemDetail
+export default ItemDetail;

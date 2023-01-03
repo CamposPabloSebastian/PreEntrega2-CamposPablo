@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Navbar.css";
 import CardWidget from "../CartWidget/CardWidget";
 import { Link } from "react-router-dom";
+import { CartContext } from "../cartContext/CartContext";
 
 const Navbar = () => {
+
+    const { contar } = useContext(CartContext)
+    // console.log("en nav es: " + typeof (contar()), contar())
+
     return (
         // <header>
         //     <div classNameName="empresa">
@@ -70,9 +75,7 @@ const Navbar = () => {
                     </ul>
                     <li className="nav-item li-cart" id="cart">
                         <Link to="/cart" className="iconCartWidget">
-                            <CardWidget /><span className="spanCartWidget">
-                                1
-                            </span>
+                            <CardWidget countCart={contar()} />
                         </Link>
                     </li>
                 </div>
