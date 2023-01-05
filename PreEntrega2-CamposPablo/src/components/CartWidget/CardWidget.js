@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BsFillCartFill } from "react-icons/bs";
+import { CartContext } from '../cartContext/CartContext';
+const CardWidget = () => {
 
-const CardWidget = ({ countCart }) => {
+    const { contar } = useContext(CartContext);
 
     return (
         <>
             <BsFillCartFill />
-            <span className='ps-2'>{countCart}</span>
+            <span className='ps-2'>{contar()}</span>
         </>
     )
 }

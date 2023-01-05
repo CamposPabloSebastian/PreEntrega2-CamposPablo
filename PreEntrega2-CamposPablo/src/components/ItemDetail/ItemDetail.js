@@ -1,23 +1,21 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import ItemCount from './../ItemCount/ItemCount';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../cartContext/CartContext';
 
 const ItemDetail = ({ producto }) => {
 
-    // const [countItemCart, setCountItemCart] = useState(0);
-    const { addItemCart } = useContext(CartContext);
+    const { addItemCart, contar } = useContext(CartContext);
 
     const onAdd = (cant) => {
-        // setCountItemCart(cant);
         addItemCart(producto, cant);
     }
 
     return (
         <>
-            <div className='text-center'>
-                <Link to='/listMotos'><button className='btn btn-warning'>Volver</button></Link>
-                <Link to='/cart'><button className='btn btn-warning'>Finalizar Compra</button></Link>
+            <div className='d-flex justify-content-between mx-3 mt-3'>
+                <Link to='/listMotos'><button className='btn btn-primary text-start'>Volver</button></Link>
+                {contar() > 0 && (<><Link to='/cart'><button className='btn btn-success text-end'>Finalizar Compra</button></Link></>)}
             </div>
             <div className="col-12 col-md-6 col-lg-4 p-4">
                 <div className="card">

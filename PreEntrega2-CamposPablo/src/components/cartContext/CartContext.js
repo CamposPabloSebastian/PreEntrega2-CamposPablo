@@ -68,9 +68,11 @@ const CartProvider = ({ children }) => {
         return cart.reduce((total, item) => (total + (item.amount * item.precio)), 0);
     }
 
+    const cartIsEmpty = () => cart.length === 0 ? true : false;
+
     return (
         <CartContext.Provider
-            value={{ cart, setCart, addItemCart, contar, clearCart, removeItem, subtractAmount, addAmount, totalCart }}>
+            value={{ cart, setCart, addItemCart, contar, clearCart, removeItem, subtractAmount, addAmount, totalCart, cartIsEmpty }}>
             {children}
         </CartContext.Provider>
     )
