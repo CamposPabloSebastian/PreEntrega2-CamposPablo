@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import ItemCount from './../ItemCount/ItemCount';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../cartContext/CartContext';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const ItemDetail = ({ producto }) => {
 
@@ -9,6 +11,16 @@ const ItemDetail = ({ producto }) => {
 
     const onAdd = (cant) => {
         addItemCart(producto, cant);
+        toast.success("Producto añadido con exito!", {
+            position: 'top-right',
+            style: {
+                borderRadius: '10px',
+                background: '#053641',
+                color: '#fff',
+                padding: '16px',
+                minWidth: '250px',
+            }
+        })
     }
 
     return (
@@ -35,6 +47,7 @@ const ItemDetail = ({ producto }) => {
                     </div>
                     <div className="card-footer text-end">{producto.precio}</div>
                     <div className="text-center"><ItemCount onAdd={onAdd} /></div>
+                    <Toaster></Toaster>
                     {/* <p>Unidades disponibles: {producto.stock - countItemCart}</p> */}
                 </div>
             </div>

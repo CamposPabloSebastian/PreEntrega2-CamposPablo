@@ -3,7 +3,8 @@ import { CartContext } from '../../components/cartContext/CartContext';
 import { BsTrash } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import ContactForm from '../../components/ContactForm/ContactForm';
-import './cart.css'
+import './cart.css';
+
 
 const Cart = () => {
 
@@ -16,14 +17,14 @@ const Cart = () => {
     }
 
     return (
-        <>
+        <div className=''>
             {cartIsEmpty() ?
                 (<>
                     <div className='text-end'>
                         <Link to='/listMotos'><button className='btn btn-success m-2'>Ver productos</button></Link>
                     </div>
                     <div className='text-center m-auto'>
-                        <h1 className='mb-5'>Aún no has añadido productos a tu carro.</h1>
+                        <h1 className='mb-5'>Tu carrito esta vacio.</h1>
                         <img src='./../images/cartEmpty.png' alt="cart empty" className='mt-5' />
                     </div>
                 </>) :
@@ -76,7 +77,7 @@ const Cart = () => {
 
                 )}
 
-        </>
+        </div>
     )
 
 }

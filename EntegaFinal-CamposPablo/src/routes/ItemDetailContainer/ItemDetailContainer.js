@@ -14,7 +14,6 @@ const ItemDetailContainer = () => {
         const itemRef = doc(db, 'soloMotos-Items', id);
 
         getDoc(itemRef).then(snapshot => {
-            console.log("conexion de itemDetailContainer")
             setItem({
                 id: snapshot.id,
                 ...snapshot.data()

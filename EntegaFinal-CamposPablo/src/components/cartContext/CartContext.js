@@ -17,6 +17,7 @@ const CartProvider = ({ children }) => {
     }
 
     const addItemCart = (prod, amount) => {
+
         if (isInCart(prod.id)) {
             setCart(
                 cart.map((item) => {
@@ -34,7 +35,7 @@ const CartProvider = ({ children }) => {
         return isInCart(itemId) ? setCart(cart.filter((prod) => prod.id !== itemId)) : "No añadido al carrito";
     }
 
-    function clearCart() {
+    const clearCart = () => {
         if (cart.length > 0) {
             setCart([...[]])
         } else {

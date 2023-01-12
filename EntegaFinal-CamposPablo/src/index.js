@@ -7,6 +7,26 @@ import reportWebVitals from './reportWebVitals';
 // import { Tooltip, Toast, Popover, Grid } from 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //Importaciones de firabase
+
+// // Import the functions you need from the SDKs you need
+// import { initializeApp } from "firebase/app";
+// // TODO: Add SDKs for Firebase products that you want to use
+// // https://firebase.google.com/docs/web/setup#available-libraries
+
+// // Your web app's Firebase configuration
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBND8iCvHDiFQz2MLqlCokakyC4BXulqko",
+//   authDomain: "solomotos-c2024.firebaseapp.com",
+//   projectId: "solomotos-c2024",
+//   storageBucket: "solomotos-c2024.appspot.com",
+//   messagingSenderId: "873948640025",
+//   appId: "1:873948640025:web:53e7a246b8f72b4ff54b88"
+// };
+
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
