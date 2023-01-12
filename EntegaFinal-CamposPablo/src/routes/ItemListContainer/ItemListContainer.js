@@ -8,11 +8,15 @@ const ItemListContainer = ({ saludo }) => {
 
     const [data, setData] = useState([]);
     const [filter, setFilter] = useState('');
-    let marcasMapArr = new Map(data.map(item => {
-        return [item.marca, item]
-    }));
+    // let marcasMapArr = new Map(data.map(item => {
+    //     return [item.marca, item]
+    // }));
 
-    let marcasDisponibles = [...marcasMapArr.values()]
+    // let marcasDisponibles = [...marcasMapArr.values()]
+
+    const filtroHandler = ({ filtroSelect }) => {
+        console.log(filtroSelect)
+    };
 
     // let modelosMapArr = new Map(data.map(item => {
     //     return [item.modelo, item]
@@ -43,13 +47,10 @@ const ItemListContainer = ({ saludo }) => {
             });
     }, [filter]);
 
-    const filterOnChangeHandler = (ev) => {
-        setFilter(ev.target.value);
-    }
 
     return (
-        <div>
-            <Filters marcas={marcasDisponibles} />
+        <>
+            <Filters filtroHandler={filtroHandler} />
             <div className="container w-75">
                 {/* <select onChange={filterOnChangeHandler}>
                 <option value={''}>...</option>
@@ -66,7 +67,7 @@ const ItemListContainer = ({ saludo }) => {
                     <ItemList listaObjetos={data} />
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

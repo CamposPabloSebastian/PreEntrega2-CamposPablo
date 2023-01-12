@@ -1,70 +1,156 @@
-# Getting Started with Create React App
+# SomoMotos *eCommerce*.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Proyecto creado con 
 
-## Available Scripts
+## Finalidad del proyecto
 
-In the project directory, you can run:
+El proyecto tiene la finalidad de facilitar a los usuarios de motocicletas encontrar su vehiculo adecuado con mayor facilidad sin tener que visitar muchas web's.
 
-### `npm start`
+### Tecnologias utilizadas.
+La pagina web esta desarrollada en [React](https://github.com/facebook/create-react-app).
+ Utilizando para mejora en la interface:
+- [Bootstrap v5.0](https://getbootstrap.com/docs/5.0/getting-started/introduction/).
+- [react-hot-toast](https://react-hot-toast.com/)
+- [Loading.io](https://loading.io/css/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Y para el almacenamiento de datos:
+- [Firabase](https://firebase.google.com/).
+  
+  
+## Conexion a la base de datos.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Para obtener la informacion de nuestra base de datos una vez configurada la conexion en el **index.js** de nuestro proyecto [Documentacion Firabase](https://firebase.google.com/), en nuestro componente **ItemListContainer** solicitamos los datos como lo indica la *Documenteacion de Firabase*.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```javaScript
+ useEffect(() => {
+        const db = getFirestore();
+        const itemsCollection = collection(db, 'soloMotos-Items');
+        const q = query(itemsCollection, where('marca', '==', filter))
+        filter ?
+            getDocs(q).then(snapshot => {
+                const data = snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data()
+                }))
+                setData(data);
+            }) :
 
-### `npm run build`
+            getDocs(itemsCollection).then(snapshot => {
+                const data = snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data()
+                }))
+                setData(data);
+            });
+    }, [filter]);
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Podemos observar que condicionalmente por un filtro traemos toda la informacion de nuestra base de datos o bien un elemento especifico segun filtro.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Almacenamiento ordenes de compra.
+Para poder realizar el almacenamiento se ah creado un componente **CartContext** donde tendremos toda la logica y variables de almacenamiento del proceso de la compra, creando un estado donde se iran almacenando cada item, con su cantidad en un arrar, y al momento de finalizar la compra tengamos todos los datos por medio del contexto en el componente **Cart**.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### CartContext.
+- En este componente se crea un **CartProvider** el cual permite que los componentes que lo consumen se suscriban a los cambios del contexto.
 
-### `npm run eject`
+```javaScript
+const CartProvider = ({ children }) => 
+    {
+         const [cart, setCart] = useState([]);
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+        ...Logica del contxto, (Ver componente)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    }
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+export { CartProvider, CartContext };
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- A su ver tambien crearemos el contexto,
 
-## Learn More
+```javaScript
+const CartContext = React.createContext([]);
+export const useCartContext = () => useContext(CartContext);
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- y el estado para almacenar la informacion
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```javaScript
+const [cart, setCart] = useState([]);
+```
 
-### Code Splitting
+### Finalizando compras.
+Para poder finalizar la compra debemos rellenar un formulario, componente **ContactForm** donde se dejaran los datos para asociar los productos a un comprador y almacenarlos.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+obtener datos del formulario del comprador.
+   
+1. Creamos un estado donde almacenaremos los datos obtenidos.
+   
+      ```javaScript
+        const [form, setForm] = useState(
+            {
+                name: '',
+                email: '',
+                mensaje: '',
+            });
+   ```
+   
+2. Creamos el evento que se ejecutara cada que tengamos cambios en los campos del formuraio.
+Donde realizamos una destructuracion del evento y lo guardamos en el estado del formulario.
 
-### Analyzing the Bundle Size
+   ```javaScript
+        const changeHandler = (ev) => 
+        {
+            const { value, name } = ev.target;
+            setForm({ ...form, [name]: value });
+        }
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+3. Al clickear el boton enviar del formulario se crear un nuevo objeto (order) que contiene los productos del carrito y un comprador (con los datos obtenidos del formulario), se lo enviar a la BBDD y se resetea el formulario.
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```javaScript
+ const submitHandler = (ev) => {
+        ev.preventDefault();
 
-### Advanced Configuration
+        const db = getFirestore();
+        const formCollection = collection(db, 'orders');
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+        const order = {
+            form,
+            items: cart.map(item => (
+                {
+                    id: item.id,
+                    titulo: `${item.marca} - ${item.modelo}`,
+                    precio: item.precio,
+                    cantidad: item.amount
+                }
+            )),
+            total: totalCart(),
+        }
 
-### Deployment
+        addDoc(formCollection, order).then((snapshot) => {
+            setForm({
+                name: '',
+                email: '',
+                mensaje: '',
+            });
+            setId(snapshot.id);
+        });
+        toast.success("Compra exitosa!", {
+            position: 'top-right',
+            style: {
+                borderRadius: '10px',
+                background: '#053641',
+                color: '#fff',
+                padding: '16px',
+                minWidth: '250px',
+            }
+        });
+    }
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+*La pagina web seguira mejorando y aplicando nuevas funcionalidades, se intentara dejarla en produccion realmente y que muchos usuarios puedan disfrutar de ella*
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Linkedin](https://www.linkedin.com/feed/?trk=guest_homepage-basic_nav-header-signin) Pablo Sebastian Campos.

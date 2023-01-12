@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react'
 import { collection, getFirestore, addDoc } from 'firebase/firestore';
 import './contactForm.css'
 import { CartContext } from '../cartContext/CartContext';
-import CompraExitosa from '../../components/CompraExitosa/CompraExitosa';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const ContactForm = () => {
@@ -16,8 +16,8 @@ const ContactForm = () => {
         email: '',
         mensaje: '',
     });
-    const [show, setShow] = useState(false);
 
+    const [show, setShow] = useState(false);
     const handleClose = () => {
         setShow(false);
         clearCart();
@@ -25,7 +25,6 @@ const ContactForm = () => {
     const handleShow = () => setShow(true);
 
     const submitHandler = (ev) => {
-
         ev.preventDefault();
 
         const db = getFirestore();
@@ -51,9 +50,17 @@ const ContactForm = () => {
                 mensaje: '',
             });
             setId(snapshot.id);
-            console.log(snapshot.id)
         });
-        // setFormSend(true);
+        toast.success("Compra exitosa!", {
+            position: 'top-right',
+            style: {
+                borderRadius: '10px',
+                background: '#053641',
+                color: '#fff',
+                padding: '16px',
+                minWidth: '250px',
+            }
+        });
     }
 
     const changeHandler = (ev) => {
@@ -96,6 +103,7 @@ const ContactForm = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            <Toaster />
         </>
     )
 }
