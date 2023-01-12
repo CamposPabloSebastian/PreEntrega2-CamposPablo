@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './filters.css';
 
 const Filters = ({ filtroHandler }) => {
 
-    const [filter, setFilter] = useState('');
     const filterOnChangeHandler = (ev) => {
-        // setFilter();
         filtroHandler(ev.target.value);
-        console.log(ev.target.value)
     }
 
     return (
@@ -16,11 +13,11 @@ const Filters = ({ filtroHandler }) => {
         //         <option key={indice} value={marca.marca}>{marca.marca}</option>
         //     ))}
         // </select>
-        <form defaultValue={filter || "nada"} className="row" id="form-filtro">
+        <form defaultValue={"nada"} className="row" id="form-filtro">
             <div className="col-12 col-md-4">
                 <label htmlFor="" className="mb-1">Marca</label>
                 <select className="form-select" id="selectFiltroMarca" onChange={filterOnChangeHandler}>
-                    <option value={''}>...</option>
+                    <option value={''}>Selecione marca...</option>
                     <option value={'YAMAHA'}>YAMAHA</option>
                     <option value={'HONDA'}>HONDA</option>
                 </select>
